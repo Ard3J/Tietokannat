@@ -1,0 +1,175 @@
+5:
+a)
+select dept_name from departments;
++--------------------+
+| dept_name          |
++--------------------+
+| Customer Service   |
+| Development        |
+| Finance            |
+| Human Resources    |
+| Marketing          |
+| Production         |
+| Quality Management |
+| Research           |
+| Sales              |
++--------------------+
+b)
+select distinct title from titles;
++--------------------+
+| title              |
++--------------------+
+| Senior Engineer    |
+| Staff              |
+| Engineer           |
+| Senior Staff       |
+| Assistant Engineer |
+| Technique Leader   |
+| Manager            |
++--------------------+
+c)
+select max(salary) from salaries;
++-------------+
+| max(salary) |
++-------------+
+|      158220 |
++-------------+
+select min(salary) from salaries;
++-------------+
+| min(salary) |
++-------------+
+|       38623 |
++-------------+
+d)
+select avg(salary) from salaries;
++-------------+
+| avg(salary) |
++-------------+
+|  63810.7448 |
++-------------+
+e)
+select * from employees where last_name='Facello';
+f)
+select count(emp_no) from employees where birth_date >='1950-01-01' and birth_date <='1959-12-31';
++---------------+
+| count(emp_no) |
++---------------+
+|        182886 |
++---------------+
+g)
+select gender, count(*) from employees group by gender;
++--------+----------+
+| gender | count(*) |
++--------+----------+
+| M      |   179973 |
+| F      |   120051 |
++--------+----------+
+
+
+6:
+create table owner (first_name varchar(255),last_name varchar(255), address varchar(255), ownerID int primary key auto_increment);
+alter table pet add column petID int primary key auto_increment;
+alter table pet add column ownerID int;
+alter table pet add constraint foreign key(ownerID) references owner(ownerID);
+insert into owner values('Harold','Lloyd','Someaddress 1',NULL);
+insert into owner values('Gwen','Stefani','Someaddress 2',NULL);
+insert into owner values('Benny','Hill','Someaddress 3',NULL);
+insert into owner values('Diane','Keaton','Someaddress 4',NULL);
+insert into pet values('Slim','snake','m','1996-04-29',NULL,NULL,NULL);
+update pet set ownerID=1 where name='Fluffy' or name='Buffy';
+update pet set ownerID=2 where name='Claws' or name='Chirpy' or name='Whistler';
+update pet set ownerID=3 where name='Fang' or name='Slim';
+update pet set ownerID=4 where name='Bowser';
+alter table pet drop column owner;
+desc pet;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| name    | varchar(20) | YES  |     | NULL    |                |
+| species | varchar(20) | YES  |     | NULL    |                |
+| sex     | char(1)     | YES  |     | NULL    |                |
+| birth   | date        | YES  |     | NULL    |                |
+| death   | date        | YES  |     | NULL    |                |
+| petID   | int         | NO   | PRI | NULL    | auto_increment |
+| ownerID | int         | YES  | MUL | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+desc owner;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| first_name | varchar(255) | YES  |     | NULL    |                |
+| last_name  | varchar(255) | YES  |     | NULL    |                |
+| address    | varchar(255) | YES  |     | NULL    |                |
+| ownerID    | int          | NO   | PRI | NULL    | auto_increment |
++------------+--------------+------+-----+---------+----------------+
+
+
+7:
+a)
+select first_name,last_name from employees order by last_name limit 10;
+b)
+select first_name,last_name from employees order by last_name, first_name limit 10;
+c)
+select * from employees order by hire_date desc limit 5;
+d)
+select first_name, last_name, salary from salaries join employees on salaries.emp_no=employees.emp_no order by salary desc limit 1;
++------------+-----------+--------+
+| first_name | last_name | salary |
++------------+-----------+--------+
+| Tokuyasu   | Pesch     | 158220 |
++------------+-----------+--------+
+e)
+select first_name, last_name, salary from salaries join employees on salaries.emp_no=employees.emp_no order by salary limit 1;
++------------+-----------+--------+
+| first_name | last_name | salary |
++------------+-----------+--------+
+| Olivera    | Baek      |  38623 |
++------------+-----------+--------+
+f)
+select first_name, last_name, salary from salaries join employees on salaries.emp_no=employees.emp_no where salary>150000 and to_date='9999-01-01';
+g)
+select count(*) from employees join dept_emp on employees.emp_no=dept_emp.emp_no join departments on dept_emp.dept_no=departments.dept_no where dept_name='Sales';
++----------+
+| count(*) |
++----------+
+|    52245 |
++----------+
+select count(*) from employees join dept_emp on employees.emp_no=dept_emp.emp_no join departments on dept_emp.dept_no=departments.dept_no where dept_name='Marketing';
++----------+
+| count(*) |
++----------+
+|    20211 |
++----------+
+h)
+select first_name, last_name, dept_name from employees join dept_manager on employees.emp_no=dept_manager.emp_no join departments on departments.dept_no=dept_manager.dept_no where to_date='9999-01-01';
+i)
+select avg(salary) from salaries join current_dept_emp on salaries.emp_no=current_dept_emp.emp_no join departments on current_dept_emp.dept_no=departments.dept_no where dept_name='Sales';
++-------------+
+| avg(salary) |
++-------------+
+|  80660.5488 |
++-------------+
+select avg(salary) from salaries join current_dept_emp on salaries.emp_no=current_dept_emp.emp_no join departments on current_dept_emp.dept_no=departments.dept_no where dept_name='Marketing';
++-------------+
+| avg(salary) |
++-------------+
+|  71951.9561 |
++-------------+
+
+
+8:
+a)
+select * from language order by name;
+b)
+select title from film join film_actor on film.film_id=film_actor.film_id join actor on film_actor.actor_id=actor.actor_id where last_name='Temple';
+c)
+select first_name,last_name from film join film_actor on film.film_id=film_actor.film_id join actor on film_actor.actor_id=actor.actor_id where title='Ghost Groundhog';
+d)
+select count(title) from film join film_category on film.film_id=film_category.film_id join category on film_category.category_id=category.category_id where name='Horror';
++--------------+
+| count(title) |
++--------------+
+|           56 |
++--------------+
+e)
+select title from film join film_category on film.film_id=film_category.film_id join category on film_category.category_id=category.category_id where name='Horror';

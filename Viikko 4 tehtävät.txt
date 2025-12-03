@@ -1,0 +1,11 @@
+10:
+a)
+select * from arviointi where arvosana='0';
+b)
+select etunimi,sukunimi,arvosana from opiskelija join arviointi on opiskelija.idOpiskelija = arviointi.idOpiskelija join opintojakso on arviointi.idOpintojakso = opintojakso.idOpintojakso where arvosana>='1' and nimi='Fysiikka 1';
+c)
+select etunimi,sukunimi,nimi from opiskelija o join arviointi a on o.idOpiskelija=a.idOpiskelija join opintojakso oj on oj.idOpintojakso=a.idOpintojakso where etunimi='Hessu' and sukunimi='Hopo';
+d)
+select etunimi, sukunimi, avg(arvosana) from opiskelija o join arviointi a on o.idOpiskelija=a.idOpiskelija join opintojakso oj on oj.idOpintojakso=a.idOpintojakso where etunimi='Aku' and sukunimi='Ankka';
+e)
+select nimi from opintojakso oj left join arviointi a on oj.idopintojakso=a.idopintojakso where (select count(arvosana)=0);
