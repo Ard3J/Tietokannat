@@ -26,7 +26,11 @@ const book = {bookData:[
             console.log("Ei löytynyt");
         }
     },
-    addBook: function(name, author, isbn){      //Id ei oteta, vaan se asetetaan olemassaolevista, ettei tule duplikaatteja
+    addBook: function(id_book,name, author, isbn){
+        this.bookData.push({id_book:id_book,name:name,author:author,isbn:isbn});
+    },
+    //Parempi versio, Id ei oteta, vaan se asetetaan olemassaolevista, ettei tule duplikaatteja
+    addBookIdCheck: function(name, author, isbn){
         const pituus = this.bookData.length -1;
         const suurinId = (Number(this.bookData[pituus].id_book) +1).toString();
         this.bookData.push({id_book:suurinId,name:name,author:author,isbn:isbn});
@@ -35,5 +39,6 @@ const book = {bookData:[
 
 book.getAllBooks();
 book.getOneBook('TBA');
-book.addBook('2001: Space Odyssey','Clarke','269842698');
+book.addBook('15','2001: Space Odyssey','Clarke','269842698');  //antaa laittaa id:ksi 15 vaikka se jo olemassa
+book.addBookIdCheck('Lord of the Rings','Tolkien','26845687');
 book.getAllBooks();
