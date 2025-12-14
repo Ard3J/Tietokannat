@@ -15,7 +15,7 @@ const opiskelija = {
     );
   },
   delete: function(id, callback) {
-    return db.queryA('delete from opiskelija where idOpiskelija=?', [id], callback);
+    return db.queryA('delete from opiskelija where idOpiskelija=?', [id], callback); 
   },
   update: function(id, opiskelija, callback) {
     return db.queryA(

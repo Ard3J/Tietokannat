@@ -9,8 +9,8 @@ const opintojakso = {
   },
   add: function(opintojakso, callback) {
     return db.queryA(
-      'insert into opintojakso (idOpintojakso,Nimi,Lajuus,Tunnus) values(?,?,?,?)',             //Lajuus kirjoitettu tietokannassa väärin. En näe
-      [opintojakso.idOpintojakso,opintojakso.Nimi, opintojakso.Lajuus, opintojakso.Tunnus],     //järkeväksi tässä vaiheessa sitä korjata
+      'insert into opintojakso (Nimi,Lajuus,Tunnus) values(?,?,?)',             //Lajuus kirjoitettu tietokannassa väärin. En näe
+      [opintojakso.Nimi, opintojakso.Lajuus, opintojakso.Tunnus],                 //järkeväksi tässä vaiheessa sitä korjata
       callback
     );
   },
@@ -19,8 +19,8 @@ const opintojakso = {
   },
   update: function(id, opintojakso, callback) {
     return db.queryA(
-      'update opintojakso set idOpintojakso=?,Nimi=?, Lajuus=?, Tunnus=? where idOpintojakso=?',
-      [opintojakso.idOpintojakso,opintojakso.Nimi, opintojakso.Lajuus, opintojakso.Tunnus, id],
+      'update opintojakso set Nimi=?, Lajuus=?, Tunnus=? where idOpintojakso=?',
+      [opintojakso.Nimi, opintojakso.Lajuus, opintojakso.Tunnus, id],
       callback
     );
   }
